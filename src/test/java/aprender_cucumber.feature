@@ -10,5 +10,10 @@ Feature: Aprender Cucumber
 
   Scenario: Deve incrementar um contador
     Given que o valor do contador e 15
-    When eu incremento em 5
+    When eu incremento em 3
     Then o valor do contador sera 18
+
+  Scenario: Deve incrementar um contador
+    Given que o valor do contador e 123
+    When eu incremento em 35
+    Then o valor do contador sera 158

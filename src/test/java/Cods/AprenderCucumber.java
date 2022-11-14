@@ -3,6 +3,7 @@ package Cods;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.junit.Assert;
 
 public class AprenderCucumber {
     @Given("que criei um arquivo corretamente")
@@ -21,20 +22,18 @@ public class AprenderCucumber {
 
     private int contador = 0;
 
-    @Given("que o valor do contador e {int}")
-    public void que_o_valor_do_contador_e(Integer int1) {
-        contador = int1;
+    @Given("que o valor do contador e 15")
+    public void que_o_valor_do_contador_e() {
+        contador = 15;
     }
 
-    @When("eu incremento em {int}")
-    public void eu_incremento_em(Integer int1) {
-        contador = contador + int1;
+    @When("eu incremento em 3")
+    public void eu_incremento_em() {
+        contador = contador + 3;
     }
 
-    @Then("o valor do contador sera {int}")
-    public void o_valor_do_contador_sera(Integer int1) {
-        System.out.println(int1);
-        System.out.println(contador);
-        System.out.println(int1 == contador);
+    @Then("o valor do contador sera 18")
+    public void o_valor_do_contador_sera() {
+        Assert.assertEquals((int) 18, contador);
     }
 }
