@@ -61,7 +61,7 @@ public class AprenderCucumber {
     public void queAEntregaÉDia(Integer dia, Integer mes, Integer ano) {
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.DAY_OF_MONTH, dia);
-        cal.set(Calendar.MONTH, mes);
+        cal.set(Calendar.MONTH, mes - 1);
         cal.set(Calendar.YEAR, ano);
         entrega = cal.getTime();
     }
@@ -72,7 +72,7 @@ public class AprenderCucumber {
         cal.add(Calendar.DAY_OF_MONTH, int1);
         entrega = cal.getTime();
     }
-    @Then("a entrega será efetuada {int}\\/{int}\\/{int}")
+    @Then("^a entrega será efetuada (\\d{2}\\/\\d{2}\\/\\d{4})$")
     public void aEntregaSeráEfetuada(String data) {
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         String dataFormatada = format.format(entrega);
