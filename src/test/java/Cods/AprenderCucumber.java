@@ -43,21 +43,25 @@ public class AprenderCucumber {
     public void o_valor_do_contador_sera() {
         Assert.assertEquals(18, contador);
     }
+
     @Given("que o valor do contador e 123")
     public void queOValorDoContadorE() {
         contador = 123;
     }
+
     @When("eu incremento em 35")
     public void euIncrementoEm() {
         contador = contador + 35;
     }
+
     @Then("o valor do contador sera 158")
     public void oValorDoContadorSera() {
         Assert.assertEquals(158, contador);
     }
 
     Date entrega = new Date();
-    @Given("que a entrega é dia {int}\\/{int}\\/{int}")
+
+    @Given("que a entrega é dia (\\d+)\\/(\\d+)\\/(\\d+)$")
     public void queAEntregaÉDia(Integer dia, Integer mes, Integer ano) {
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.DAY_OF_MONTH, dia);
@@ -65,18 +69,24 @@ public class AprenderCucumber {
         cal.set(Calendar.YEAR, ano);
         entrega = cal.getTime();
     }
-    @When("a entrega atrasar em {int} dias")
-    public void aEntregaAtrasarEmDias(Integer int1) {
+
+    @When("^a entrega atrasar em (\\d+) (dia|dias|mes|meses)$")
+    public void aEntregaAtrasarEmDias(Integer int1, String tempo) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(entrega);
-        cal.add(Calendar.DAY_OF_MONTH, int1);
+        if (tempo.equals("dias")) {
+            cal.add(Calendar.DAY_OF_MONTH, int1);
+        }
+        if (tempo.equals("meses")) {
+            cal.add(Calendar.MONTH, int1);
+        }
         entrega = cal.getTime();
     }
+
     @Then("^a entrega será efetuada (\\d{2}\\/\\d{2}\\/\\d{4})$")
     public void aEntregaSeráEfetuada(String data) {
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         String dataFormatada = format.format(entrega);
         Assert.assertEquals(data, dataFormatada);
     }
-
 }

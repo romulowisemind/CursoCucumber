@@ -22,3 +22,8 @@ Feature: Aprender Cucumber
     Given que a entrega é dia 05/04/2018
     When a entrega atrasar em 2 dias
     Then a entrega será efetuada 07/04/2018
+
+  Scenario: Deve calcular atraso na entrega da China
+    Given que a entrega é dia 05/04/2018
+    When a entrega atrasar em 2 meses
+    Then a entrega será efetuada 05/06/2018
