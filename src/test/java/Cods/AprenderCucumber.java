@@ -89,4 +89,23 @@ public class AprenderCucumber {
         String dataFormatada = format.format(entrega);
         Assert.assertEquals(data, dataFormatada);
     }
+
+    @Given("^que o ticket( especial)? é (A.\\d{3})$")
+    public void queOTicketÉAF(String tipo, String int1) {
+    }
+    @Given("^que o valor da passagem é R\\$ (\\d+),(\\d+)$")
+    public void queOValorDaPassagemÉR$(Integer int1, Integer int2) {
+    }
+    @Given("^que o nome do passageiro é \"(.{5,20})\"$")
+    public void queONomeDoPassageiroÉ(String arg1) {
+    }
+    @Given("^que o telefone do passageiro é 9\\d{3}-\\d{4}$")
+    public void queOTelefoneDoPassageiroÉ(String telefone) {;
+    }
+    @When("^criar os steps$")
+    public void criarOsSteps() {
+    }
+    @Then("^o teste vai funcionar$")
+    public void oTesteVaiFuncionar() {
+    }
 }
