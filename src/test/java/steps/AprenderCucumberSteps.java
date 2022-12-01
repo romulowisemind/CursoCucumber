@@ -1,18 +1,16 @@
-package Cods;
+package steps;
 
-import io.cucumber.java.ca.Cal;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
-import sun.awt.IconInfo;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class AprenderCucumber {
+public class AprenderCucumberSteps {
     @Given("que criei um arquivo corretamente")
     public void que_criei_um_arquivo_corretamente() {
         System.out.println("Qualquer coisa");
@@ -61,7 +59,7 @@ public class AprenderCucumber {
 
     Date entrega = new Date();
 
-    @Given("que a entrega é dia (\\d+)\\/(\\d+)\\/(\\d+)$")
+    @Given("que a entrega é dia (\\d+)/(\\d+)/(\\d+)$")
     public void queAEntregaÉDia(Integer dia, Integer mes, Integer ano) {
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.DAY_OF_MONTH, dia);
@@ -99,13 +97,13 @@ public class AprenderCucumber {
     @Given("^que o nome do passageiro é \"(.{5,20})\"$")
     public void queONomeDoPassageiroÉ(String arg1) {
     }
-    @Given("^que o telefone do passageiro é 9\\d{3}-\\d{4}$")
+    @Given("^que o telefone do passageiro é (9\\d{3}-\\d{4})$")
     public void queOTelefoneDoPassageiroÉ(String telefone) {;
     }
-    @When("^criar os steps$")
+    @Given("^criar os steps$")
     public void criarOsSteps() {
     }
-    @Then("^o teste vai funcionar$")
+    @Given("^o teste vai funcionar$")
     public void oTesteVaiFuncionar() {
     }
 }
