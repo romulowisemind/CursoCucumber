@@ -60,7 +60,7 @@ public class AprenderCucumberSteps {
     Date entrega = new Date();
 
     @Given("que a entrega é dia (\\d+)/(\\d+)/(\\d+)$")
-    public void queAEntregaÉDia(Integer dia, Integer mes, Integer ano) {
+    public void queAEntregaEDia(Integer dia, Integer mes, Integer ano) {
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.DAY_OF_MONTH, dia);
         cal.set(Calendar.MONTH, mes - 1);
@@ -82,23 +82,23 @@ public class AprenderCucumberSteps {
     }
 
     @Then("^a entrega será efetuada (\\d{2}\\/\\d{2}\\/\\d{4})$")
-    public void aEntregaSeráEfetuada(String data) {
+    public void aEntregaSeraEfetuada(String data) {
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         String dataFormatada = format.format(entrega);
         Assert.assertEquals(data, dataFormatada);
     }
 
     @Given("^que o ticket( especial)? é (A.\\d{3})$")
-    public void queOTicketÉAF(String tipo, String int1) {
+    public void queOTicketEAF(String tipo, String int1) {
     }
     @Given("^que o valor da passagem é R\\$ (\\d+),(\\d+)$")
-    public void queOValorDaPassagemÉR$(Integer int1, Integer int2) {
+    public void queOValorDaPassagemER$(Integer int1, Integer int2) {
     }
     @Given("^que o nome do passageiro é \"(.{5,20})\"$")
-    public void queONomeDoPassageiroÉ(String arg1) {
+    public void queONomeDoPassageiroE(String arg1) {
     }
     @Given("^que o telefone do passageiro é (9\\d{3}-\\d{4})$")
-    public void queOTelefoneDoPassageiroÉ(String telefone) {;
+    public void queOTelefoneDoPassageiroE(String telefone) {
     }
     @Given("^criar os steps$")
     public void criarOsSteps() {

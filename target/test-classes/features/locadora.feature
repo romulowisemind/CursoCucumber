@@ -5,7 +5,7 @@ Feature: Locadora
 
   Scenario: Deve alugar um filme com sucesso
     Given um filme com estoque de 2 unidades
-    And que o preço de aluguel seja R$ 3
+    And que o preço do aluguel seja R$ 3
     When alugar
     Then o preço do aluguel será R$ 3
     And a data de entrega será de 1 dia
@@ -17,20 +17,18 @@ Feature: Locadora
     Then não será possível por falta de estoque
     And o estoque do filme será 0 unidades
 
-  Scenario: Deve dar condições especiais para categoria extendida
+  Scenario Outline: Deve dar condições conforme tipo de aluguel.
     Given um filme com estoque de 2 unidades
-    And que o preço do aluguel seja R$ 4
-    And que o tipo de aluguel seja extendido
+    And que o preço do aluguel seja R$ <preco>
+    And que o tipo de aluguel seja <tipo>
     When alugar
-    Then o preço do aluguel será R$ 8
-    And a data de entrega será de 3 dias
-    And a pontuação recebida será de 2 pontos
+    Then o preço do aluguel será R$ <valor>
+    And a data de entrega será de <qtsDias> dias
+    And a pontuação recebida será de <pontuacao> pontos
 
-  Scenario: Deve dar alugar para categoria comum
-    Given um filme com estoque de 2 unidades
-    And que o preço do aluguel seja R$ 4
-    And que o tipo de aluguel seja comum
-    When alugar
-    Then o preço do aluguel será R$ 4
-    And a data de entrega será de 1 dia
-    And a pontuação recebida será de 1 pontos
+    Examples:
+      | preco | tipo      | valor | qtsDias | pontuacao |
+      |   4   | extendido |   8   |    3    |     2     |
+      |   4   |   comum   |   4   |    1    |     1     |
+      |   10  | extendido |  20   |    3    |     2     |
+      |   5   |  semanal  |  15   |    7    |     3     |
