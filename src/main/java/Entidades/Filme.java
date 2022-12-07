@@ -10,4 +10,12 @@ public class Filme {
     public void setAluguel(Integer int1) {
         this.aluguel = int1;
     }
+
+    public int getAluguel() {
+        return aluguel;
+    }
+
+    public int getEstoque() {
+        return estoque;
+    }
 }
