@@ -1,19 +1,20 @@
 package steps;
 
 import Entidades.NotaAluguel;
-import io.cucumber.java.ca.Cal;
+import Utils.DateUtils;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import Entidades.Filme;
-import org.junit.Assert;
+import junit.framework.Assert;
 import org.junit.jupiter.api.Assertions;
 import servicos.AluguelService;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Optional;
 
 public class LocadoraSteps {
 
@@ -21,6 +22,7 @@ public class LocadoraSteps {
     private AluguelService aluguel = new AluguelService();
     private NotaAluguel nota;
     private String erro;
+    private String tipoAluguel;
 
     @Given("^um filme com estoque de (\\d+) unidades$")
     public void umFilmeComEstoqueDeUnidades(Integer int1) {
@@ -32,11 +34,15 @@ public class LocadoraSteps {
     public void queOPreçoDeAluguelSejaR$(Integer int1) {
         filme.setAluguel(int1);
     }
+    @Given("^que o preço do aluguel seja R\\$ (\\d+)$")
+    public void queOPreçoDoAluguelSejaR$(Integer int1) {
+        filme.setAluguel(int1);
+    }
 
     @When("^alugar$")
     public void alugar() {
         try {
-        nota = aluguel.alugar(filme);
+        nota = aluguel.alugar(filme, tipoAluguel);
         } catch (RuntimeException e) {
             erro = e.getMessage();
         }
@@ -44,21 +50,7 @@ public class LocadoraSteps {
 
     @Then("^o preço do aluguel será R\\$ (\\d+)$")
     public void oPreçoDoAluguelSeráR$(Integer int1) {
-        Assertions.assertEquals(int1, nota.getPreco());
-    }
-
-    @Then("^a data de entrega será no dia seguinte$")
-    public void aDataDeEntregaSeráNoDiaSeguinte() {
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DAY_OF_MONTH, 1);
-
-        Date dataRetorno = nota.getDataEntrega();
-        Calendar calRetorno = Calendar.getInstance();
-        calRetorno.setTime(dataRetorno);
-
-        Assertions.assertEquals(cal.get(Calendar.DAY_OF_MONTH), calRetorno.get(Calendar.DAY_OF_MONTH));
-        Assertions.assertEquals(cal.get(Calendar.MONTH), calRetorno.get(Calendar.MONTH));
-        Assertions.assertEquals(cal.get(Calendar.YEAR), calRetorno.get(Calendar.YEAR));
+        Assert.assertEquals(int1, nota.getPreco(), 8);
     }
 
     @Then("^o estoque do filme será (\\d+) unidades$")
@@ -66,9 +58,30 @@ public class LocadoraSteps {
         Assertions.assertEquals(int1, filme.getEstoque());
     }
 
-    @Then("não será possível por falta de estoque")
+    @Then("^não será possível por falta de estoque$")
     public void nãoSeráPossívelPorFaltaDeEstoque() {
         Assertions.assertEquals("Filme sem estoque!!!", erro);
+    }
+
+
+    @Given("^que o tipo de aluguel seja (.*)$")
+    public void queOTipoDeAluguelSejaExtendido(String tipo) {
+        tipoAluguel = tipo;
+    }
+
+
+    @Then("^a data de entrega será de (\\d+) dias?$")
+    public void aDataDeEntregaSeráDeDias(Integer int1) {
+        Date dataEsperada = DateUtils.obterDataComDiferencaDeDias(int1);
+        Date dataReal = nota.getDataEntrega();
+
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+
+        Assertions.assertEquals(format.format(dataEsperada), format.format(dataReal));
+    }
+    @Then("^a pontuação recebida será de (\\d+) pontos$")
+    public void aPontuaçãoRecebidaSeráDePontos(Integer int1) {
+        Assertions.assertEquals(int1, nota.getPontuacao());
     }
 
 
