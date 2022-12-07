@@ -4,8 +4,11 @@ Feature: Locadora
   Para controlar preços e datas de entregas
 
   Scenario: Deve alugar um filme com sucesso
-    Given um filme com estoque de 2 unidades
-    And que o preço do aluguel seja R$ 3
+    Given um filme
+    | estoque |    2    |
+    |  preco  |    3    |
+    |  tipo   |  comum  |
+
     When alugar
     Then o preço do aluguel será R$ 3
     And a data de entrega será de 1 dia

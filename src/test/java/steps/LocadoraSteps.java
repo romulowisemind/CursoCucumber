@@ -3,6 +3,7 @@ package steps;
 import Entidades.NotaAluguel;
 import Entidades.TipoAluguel;
 import Utils.DateUtils;
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -14,6 +15,7 @@ import servicos.AluguelService;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
 public class LocadoraSteps {
 
@@ -32,6 +34,16 @@ public class LocadoraSteps {
     @Given("^que o preço do aluguel seja R\\$ (\\d+)$")
     public void queOPrecoDoAluguelSejaR$(Integer int1) {
         filme.setAluguel(int1);
+    }
+
+    @Given("um filme")
+    public void umFilme(DataTable table) {
+        Map<String, String> map = table.asMap(String.class, String.class);
+        filme = new Filme();
+        filme.setEstoque(Integer.parseInt(map.get("estoque")));
+        filme.setAluguel(Integer.parseInt(map.get("preco")));
+        String tipo = map.get("tipo");
+        tipoAluguel = tipo.equals("semanal") ? TipoAluguel.SEMANAL : tipo.equals("extendido") ? TipoAluguel.EXTENDIDO : TipoAluguel.COMUM;
     }
 
     @When("^alugar$")
