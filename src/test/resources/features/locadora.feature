@@ -35,3 +35,4 @@ Feature: Locadora
       |   4   |   comum   |   4   |    1    |     1     |
       |   10  | extendido |  20   |    3    |     2     |
       |   5   |  semanal  |  15   |    7    |     3     |
+#    asuhdiasduahusd
